@@ -3,7 +3,43 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
-val isDebuggableMMRL = true
+android {
+    compileSdk = 35
+    namespace = "com.dergoogler.webui"
+
+    defaultConfig {
+        minSdk = 21
+        multiDexEnabled = false
+    }
+
+    buildTypes {
+        release {
+            isShrinkResources = false
+            multiDexEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            )
+        }
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.15"
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    
+    packaging.resources.excludes += setOf(
+        "META-INF/**",
+        "okhttp3/**",
+        "kotlin/**",
+        "org/**",
+        "**.properties",
+        "**.bin",
+        "**/*.proto"
+    )
+}
 
 dependencies {}
 
@@ -11,8 +47,6 @@ val androidHome: String = System.getenv("ANDROID_HOME")
 
 val d8Bin: String = "$androidHome/build-tools/34.0.0/d8.bat"
 val adbBin: String = "$androidHome/platform-tools/adb.exe"
-val targetPackage = if (isDebuggableMMRL) "com.dergoogler.mmrl.debug" else "com.dergoogler.mmrl"
-val appDir: String = "/data/data/$targetPackage/files"
 val buildDir: File = project.layout.buildDirectory.get().asFile
 
 fun adbPush(vararg cmd: String) {
@@ -40,6 +74,6 @@ tasks.register("build-dex") {
 
     doLast {
         d8("--output=$buildDir", classes.path)
-        adbPush("$buildDir/classes.dex", "$appDir/plugins/webui-plugin.dex")
+        adbPush("$buildDir/classes.dex", "/data/adb/modules/bindhosts/webroot/plugins/webui-plugin.dex")
     }
 }
