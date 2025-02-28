@@ -5,7 +5,7 @@ plugins {
 
 android {
     compileSdk = 35
-    namespace = "com.dergoogler.webui"
+    namespace = "com.dergoogler.mmrl.webui"
 
     defaultConfig {
         minSdk = 21

@@ -1,4 +1,4 @@
-package com.dergoogler.webui.dialog
+package com.dergoogler.mmrl.webui.dialog
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -6,7 +6,7 @@ import android.content.Context
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 
-const val interfaceName = "dialog"
+const val instanceName = "dialog"
 
 fun instance(context: Context, webView: WebView): Any {
     return object {
@@ -29,7 +29,7 @@ fun instance(context: Context, webView: WebView): Any {
         fun setPositiveButton(text: String, callbackName: String) {
             dialogBuilder.setPositiveButton(text) { _, _ ->
                 webView.post {
-                    webView.loadUrl("javascript:window.$interfaceName.$callbackName()")
+                    webView.loadUrl("javascript:window.$instanceName.$callbackName()")
                 }
             }
         }
@@ -38,7 +38,7 @@ fun instance(context: Context, webView: WebView): Any {
         fun setNegativeButton(text: String, callbackName: String) {
             dialogBuilder.setNegativeButton(text) { _, _ ->
                 webView.post {
-                    webView.loadUrl("javascript:window.$interfaceName.$callbackName()")
+                    webView.loadUrl("javascript:window.$instanceName.$callbackName()")
                 }
             }
         }
