@@ -20,7 +20,7 @@ Here's an example of what your `plugins.json` file should look like:
 
 ```json
 [
-  "com.dergoogler.mmrl.webui.customInterface.WebUIPluginKt",
+  "com.dergoogler.mmrl.webui.activity.ActivityPluginKt",
   "com.dergoogler.mmrl.webui.dialog.DialogPluginKt"
 ]
 ```
