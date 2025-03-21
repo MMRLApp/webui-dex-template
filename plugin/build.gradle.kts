@@ -41,7 +41,9 @@ android {
     )
 }
 
-dependencies {}
+dependencies {
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+}
 
 val androidHome: String = System.getenv("ANDROID_HOME")
 
