@@ -16,13 +16,15 @@ This will compile the necessary code and generate the required `.dex` files for 
 
 To get started with the plugin integration, create a file named `plugins.json` within the `/data/adb/modules/<MODID>/webroot` directory. This file will specify the plugins to be loaded. The `.dex`, `.jar`, or `.apk` files associated with these plugins should be placed in the `/data/adb/modules/<MODID>/webroot/plugins` directory for them to be properly loaded and utilized by the WebUI.
 
-Here's an example of what your `plugins.json` file should look like:
+Here's an example of what your `config.mmrl.json` file should look like:
 
 ```json
-[
-  "com.dergoogler.mmrl.webui.activity.ActivityPluginKt",
-  "com.dergoogler.mmrl.webui.dialog.DialogPluginKt"
-]
+{
+  "plugins": [
+    "com.dergoogler.mmrl.webui.activity.ActivityPluginKt",
+    "com.dergoogler.mmrl.webui.dialog.DialogPluginKt"
+  ]
+}
 ```
 
 Make sure to replace `<MODID>` with your module's actual identifier.
