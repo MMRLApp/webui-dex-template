@@ -5,7 +5,7 @@ plugins {
 
 android {
     compileSdk = 35
-    namespace = "com.dergoogler.mmrl.webui"
+    namespace = "dev.mmrl.webui"
 
     defaultConfig {
         minSdk = 21
@@ -76,6 +76,6 @@ tasks.register("build-dex") {
 
     doLast {
         d8("--output=$buildDir", classes.path)
-        adbPush("$buildDir/classes.dex", "/data/adb/modules/bindhosts/webroot/plugins/webui-plugin.dex")
+        adbPush("$buildDir/classes.dex", "/data/adb/modules/bindhosts/webroot/plugins/webui.dex")
     }
 }
