@@ -8,7 +8,7 @@ android {
     namespace = "dev.mmrl.webui"
 
     defaultConfig {
-        minSdk = 21
+        minSdk = 26
         multiDexEnabled = false
     }
 
@@ -43,6 +43,8 @@ android {
 
 dependencies {
     compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    compileOnly("org.jetbrains.kotlinx:kotlinx-html-jvm:0.9.1")
+    compileOnly("dev.mmrl.MMRL:webui:500b3bae93")
 }
 
 val androidHome: String = System.getenv("ANDROID_HOME")
