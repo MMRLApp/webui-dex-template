@@ -44,7 +44,7 @@ android {
 dependencies {
     compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     compileOnly("org.jetbrains.kotlinx:kotlinx-html-jvm:0.9.1")
-    compileOnly("dev.mmrl.MMRL:webui:500b3bae93")
+    compileOnly("com.github.MMRLApp.MMRL:webui:4a41e7bdd7")
 }
 
 val androidHome: String = System.getenv("ANDROID_HOME")
