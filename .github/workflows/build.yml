@@ -33,7 +33,6 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build DEX file
-        working-directory: plugin
         run: ./gradlew build-dex
 
       - name: Upload DEX artifact
