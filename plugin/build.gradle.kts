@@ -47,21 +47,21 @@ dependencies {
     compileOnly("com.github.MMRLApp.MMRL:webui:4a41e7bdd7")
 }
 
+val isCI = System.getenv("CI") == "true"
+
+val osName = System.getProperty("os.name").lowercase()
+val d8Suffix = if (osName.contains("win")) ".bat" else ""
+val adbSuffix = if (osName.contains("win")) ".exe" else ""
+
 val androidHome: String = System.getenv("ANDROID_HOME")
 
-val d8Bin: String = "$androidHome/build-tools/34.0.0/d8.bat"
-val adbBin: String = "$androidHome/platform-tools/adb.exe"
+val d8Bin: String = "$androidHome/build-tools/34.0.0/d8$d8Suffix"
+val adbBin: String = "$androidHome/platform-tools/adb$adbSuffix"
 val buildDir: File = project.layout.buildDirectory.get().asFile
 
 fun adbPush(vararg cmd: String) {
     exec {
-        commandLine(android.adbExecutable.path, "push", *cmd)
-    }
-}
-
-fun adbRootShell(vararg cmd: String) {
-    exec {
-        commandLine(android.adbExecutable.path, "shell", "su", "-c", "\"${cmd.joinToString(" ")}\"")
+        commandLine(adbBin, "push", *cmd)
     }
 }
 
@@ -78,6 +78,10 @@ tasks.register("build-dex") {
 
     doLast {
         d8("--output=$buildDir", classes.path)
-        adbPush("$buildDir/classes.dex", "/data/adb/modules/bindhosts/webroot/plugins/webui.dex")
+        if (!isCI) {
+            adbPush("$buildDir/classes.dex", "/data/adb/modules/bindhosts/webroot/plugins/webui.dex")
+        } else {
+            println("Skipping adbPush in CI environment.")
+        }
     }
 }
