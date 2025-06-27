@@ -77,7 +77,7 @@ tasks.register("build-dex") {
     dependsOn("build")
 
     doLast {
-        d8("--output=$buildDir", classes.path)
+        d8("--output", "$buildDir", classes.path)
         if (!isCI) {
             adbPush("$buildDir/classes.dex", "/data/adb/modules/bindhosts/webroot/plugins/webui.dex")
         } else {
